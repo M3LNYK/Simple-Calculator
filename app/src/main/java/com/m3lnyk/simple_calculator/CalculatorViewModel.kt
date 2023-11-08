@@ -75,7 +75,7 @@ class CalculatorViewModel: ViewModel() {
             && state.number2.isNotBlank()
         ) {
             state = state.copy(
-                number2 = state.number2 + "."
+                number1 = state.number2 + "."
             )
         }
     }
