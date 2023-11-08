@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -16,13 +17,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.m3lnyk.simple_calculator.ui.theme.LightGray
+import com.m3lnyk.simple_calculator.ui.theme.Orange
 import androidx.compose.foundation.layout.Column as Column
 
 @Composable
 fun Calculator(
     state: CalculatorState,
+    modifier: Modifier = Modifier,
     buttonSpacing: Dp = 8.dp,
-    modifier: Modifier = Modifier
+    onAction: (CalculatorAction) -> Unit
 ) {
     Box(modifier = modifier) {
         Column(
@@ -45,12 +49,36 @@ fun Calculator(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
             ) {
-                CalculatorButton(symbol = "AC",
+                CalculatorButton(
+                    symbol = "AC",
                     modifier = Modifier
-                        .background()
-                ) {
-                    
-                }
+                        .background(LightGray)
+                        .aspectRatio(2f)
+                        .weight(2f),
+                    onClick = {
+                        onAction(CalculatorAction.Clear)
+                    }
+                )
+                CalculatorButton(
+                    symbol = "Del",
+                    modifier = Modifier
+                        .background(LightGray)
+                        .aspectRatio(1f)
+                        .weight(1f),
+                    onClick = {
+                        onAction(CalculatorAction.Delete)
+                    }
+                )
+                CalculatorButton(
+                    symbol = "/",
+                    modifier = Modifier
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+                    onClick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Divide))
+                    }
+                )
             }
         }
     }
